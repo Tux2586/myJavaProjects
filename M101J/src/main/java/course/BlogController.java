@@ -56,12 +56,15 @@ public class BlogController {
     private final SessionDAO sessionDAO;
 
     public static void main(String[] args) throws IOException {
+    	System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
         if (args.length == 0) {
             new BlogController("mongodb://localhost");
         }
         else {
             new BlogController(args[0]);
         }
+        
     }
 
     public BlogController(String mongoURIString) throws IOException {
