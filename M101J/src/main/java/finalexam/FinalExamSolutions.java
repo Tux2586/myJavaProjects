@@ -48,8 +48,8 @@ public class FinalExamSolutions {
 		
 		updateEmailAddress("<8147308.1075851042335.JavaMail.evans@thyme>"); */
 		
-		removeUnTaggedImages();
-		
+	//	removeUnTaggedImages();
+		animalCount();
 		
 	}
 	
@@ -78,6 +78,20 @@ public class FinalExamSolutions {
 		System.out.println(count);
 		return -1;
 	}
+	private static void animalCount(){
+		Connect("mongodb://localhost","test","animals");
+        Document animal = new Document("animal", "monkey");
+
+         collection.insertOne(animal);
+         animal.remove("animal");
+         animal.append("animal", "cat");
+         collection.insertOne(animal);
+         animal.remove("animal");
+         animal.append("animal", "lion");
+         collection.insertOne(animal);
+         
+	}
+	
 	
 	private static void updateEmailAddress(String messageID){
 		Bson filterDocument = new Document("headers.Message-ID",messageID);

@@ -1,41 +1,40 @@
 /*
- * Copyright 2015 MongoDB, Inc.
+ * Copyright 2013-2015 MongoDB Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
 package course;
 
 import com.mongodb.ErrorCategory;
 import com.mongodb.MongoWriteException;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-import org.bson.conversions.Bson;
-
+import com.mongodb.client.MongoCollection;
 import sun.misc.BASE64Encoder;
+
+import org.bson.Document;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Random;
 
 import static com.mongodb.client.model.Filters.eq;
 
 public class UserDAO {
     private final MongoCollection<Document> usersCollection;
-    private Random random = new SecureRandom();
+    private final ThreadLocal<Random> random = new ThreadLocal<Random>();
 
     public UserDAO(final MongoDatabase blogDatabase) {
         usersCollection = blogDatabase.getCollection("users");
@@ -44,31 +43,19 @@ public class UserDAO {
     // validates that username is unique and insert into db
     public boolean addUser(String username, String password, String email) {
 
-        String passwordHash = makePasswordHash(password, Integer.toString(random.nextInt()));
+        String passwordHash = makePasswordHash(password, Integer.toString(getRandom().nextInt()));
 
-        // XXX WORK HERE
-        // create an object suitable for insertion into the user collection
-        // be sure to add username and hashed password to the document. problem instructions
-        // will tell you the schema that the documents must follow.
-        
-        /*******************************************************/
-        Document user = new Document("_id",username).append("password", passwordHash);
-        
-        /*******************************************************/
+        Document user = new Document();
+
+        user.append("_id", username).append("password", passwordHash);
 
         if (email != null && !email.equals("")) {
-            // XXX WORK HERE
-            // if there is an email address specified, add it to the document too.
-        	user.append("email", email);
+            // the provided email address
+            user.append("email", email);
         }
 
         try {
-            // XXX WORK HERE
-            // insert the document into the user collection here
-        	/******************************************************/
-        	usersCollection.insertOne(user);
-        	/******************************************************/        	
-        	
+            usersCollection.insertOne(user);
             return true;
         } catch (MongoWriteException e) {
             if (e.getError().getCategory().equals(ErrorCategory.DUPLICATE_KEY)) {
@@ -80,18 +67,11 @@ public class UserDAO {
     }
 
     public Document validateLogin(String username, String password) {
-        Document user = null;
+        Document user;
 
-        // XXX look in the user collection for a user that has this username
-        // assign the result to the user variable.
-        
-        /************************************************************/
-        Bson filter = new Document("_id",username);
-        user = usersCollection.find(filter).first();
-        /************************************************************/
+        user = usersCollection.find(eq("_id", username)).first();
 
         if (user == null) {
-            System.out.println("User not in database");
             return null;
         }
 
@@ -121,5 +101,14 @@ public class UserDAO {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("UTF-8 unavailable?  Not a chance", e);
         }
+    }
+
+    private Random getRandom() {
+        Random result = random.get();
+        if (result == null) {
+            result = new Random();
+            random.set(result);
+        }
+        return result;
     }
 }
