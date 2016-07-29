@@ -5,7 +5,7 @@
     <artifactId>cloudstreetmarket-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>cloudstreetmarket-webapp</artifactId>
-  <name>CloudStreetMarket Webapp</name>
-<packaging>war</packaging>	
+  <artifactId>cloudstreetmarket-core</artifactId>
+  <packaging>jar</packaging>
+  <name>CloudStreetMarket Core</name>
 </project>
