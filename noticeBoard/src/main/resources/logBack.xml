@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    
+ <!--    
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 	    <layout class="ch.qos.logback.classic.PatternLayout">
 
@@ -19,5 +19,28 @@
 	<root level="error">
 		<appender-ref ref="STDOUT" />
 	</root>
+ -->
+
+	<property name="DEV_HOME" value="C:/Development" />
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/debug.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="org.tux2586.noticeBoard.controllers" level="debug"
+		additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<root level="error">
+		<appender-ref ref="FILE" />
+	</root>
 
 </configuration>
+ 
