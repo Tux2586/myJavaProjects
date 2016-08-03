@@ -60,6 +60,7 @@ public class BaseController {
 		user.setEmail((String)request.getParameter("eMail"));
 		user.setPassword((String)request.getParameter("password"));
 		
+		
 		return "signUpPage";
 
 	}
