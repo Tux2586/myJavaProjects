@@ -15,6 +15,7 @@
 		<logback.version>1.0.13</logback.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 		<servlet.version>4.0.0-b01</servlet.version>
+		<mongodb.version>3.3.0</mongodb.version>
 	</properties>
 	<repositories>
     <repository>
@@ -69,8 +70,13 @@
     		<artifactId>javax.servlet-api</artifactId>
     		<version>${servlet.version}</version>
    		 <scope>provided</scope>
+   		 
 </dependency>
-		
+<dependency>
+    <groupId>org.mongodb</groupId>
+    <artifactId>mongo-java-driver</artifactId>
+    <version>${mongodb.version}</version>
+</dependency>		
 	</dependencies>
 	<build>
 		<finalName>noticeBoard</finalName>
