@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -51,17 +52,10 @@ public class BaseController {
 	}
 	
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(HttpServletRequest request) {
-		User user = new User();
-		
-		user.setfName((String)request.getParameter("fName"));
-		user.setlName((String)request.getParameter("lName"));
-		user.setuName((String)request.getParameter("uName"));
-		user.setEmail((String)request.getParameter("eMail"));
-		user.setPassword((String)request.getParameter("password"));
-		
-		
-		return "signUpPage";
+	public String addUser(@ModelAttribute("user") User user) {
+		user.save();
+		logger.debug("Saved User to Database");
+		return "signUpSuccess";
 
 	}
 }

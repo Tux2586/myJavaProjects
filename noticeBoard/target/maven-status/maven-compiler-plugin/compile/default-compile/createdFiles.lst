@@ -1,1 +1,3 @@
+org\tux2586\noticeBoard\beans\User.class
+org\tux2586\noticeBoard\data\MongoConnection.class
 org\tux2586\noticeBoard\controllers\BaseController.class
