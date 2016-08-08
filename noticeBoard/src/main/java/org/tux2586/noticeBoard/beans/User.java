@@ -4,7 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.tux2586.noticeBoard.DAO.UserDAOImpl;
+import org.tux2586.noticeBoard.Exceptions.UserNotFoundException;
 import org.tux2586.noticeBoard.data.MongoConnection;
+import org.tux2586.noticeBoard.interfaces.UserDAOIntf;
 
 import sun.misc.BASE64Encoder;
 
@@ -54,6 +57,17 @@ public class User {
 		this.contactNo = contactNo;
 	}
 	
+	public User(){
+		super();
+	}
+	
+	public User(String userName){
+		super();
+		uName = userName;
+		UserDAOIntf userDAO = new UserDAOImpl();
+		userDAO.getUser(userName, this);
+	}
+	
 	private String makePasswordHash(String password, String salt) {
         try {
             String saltedAndHashed = password + "," + salt;
@@ -70,10 +84,18 @@ public class User {
     }
 	
 	public void save(){
-		MongoConnection conn = new MongoConnection();
-		conn.init();
-		conn.save(this, "users");
-		conn.close();
+		UserDAOIntf userDAO = new UserDAOImpl();
+		userDAO.addUser(this);
 	}
-
+	
+	public boolean loginUser(){
+		UserDAOIntf userDAO = new UserDAOImpl();
+		return userDAO.validate(this);
+	}
+	
+	public void update() throws UserNotFoundException{
+		UserDAOIntf userDAO = new UserDAOImpl();
+		userDAO.updateUser(this);
+	}
+	
 }

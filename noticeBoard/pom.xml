@@ -18,13 +18,13 @@
 		<mongodb.version>3.3.0</mongodb.version>
 	</properties>
 	<repositories>
-    <repository>
-      <id>apache-tomcat</id>
-      <name>your custom repo</name>
-      <url>http://repo2.maven.org/maven2/org/apache/tomcat/
+		<repository>
+			<id>apache-tomcat</id>
+			<name>your custom repo</name>
+			<url>http://repo2.maven.org/maven2/org/apache/tomcat/
 	</url>
-    </repository>
-    </repositories>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -53,7 +53,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -64,19 +64,25 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-		
+
 		<dependency>
-    		<groupId>javax.servlet</groupId>
-    		<artifactId>javax.servlet-api</artifactId>
-    		<version>${servlet.version}</version>
-   		 <scope>provided</scope>
-   		 
-</dependency>
-<dependency>
-    <groupId>org.mongodb</groupId>
-    <artifactId>mongo-java-driver</artifactId>
-    <version>${mongodb.version}</version>
-</dependency>		
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+
+		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongodb.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>noticeBoard</finalName>

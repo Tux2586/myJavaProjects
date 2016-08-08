@@ -12,6 +12,6 @@
 <body>
 
 <a href="./signUpPage">Sign up</a><br/>
-<a href="http://">Login</a><br/>
+<a href="./loginPage">Login</a><br/>
 </body>
 </html>

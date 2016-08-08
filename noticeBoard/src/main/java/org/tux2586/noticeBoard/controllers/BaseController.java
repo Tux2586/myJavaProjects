@@ -21,41 +21,17 @@ public class BaseController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
-
-		model.addAttribute("message", "Welcome");
-		model.addAttribute("counter", ++counter);
-		logger.debug("[welcome] counter : {}", counter);
-
-		// Spring uses InternalResourceViewResolver and return back index.jsp
 		return VIEW_INDEX;
-
 	} 
 
-	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
-	public String welcomeName(@PathVariable String name, ModelMap model) {
-
-		model.addAttribute("message", "Welcome " + name);
-		model.addAttribute("counter", ++counter);
-		logger.debug("[welcomeName] counter : {}", counter);
-		return VIEW_INDEX;
-
-	}
-	
 	@RequestMapping(value = "/signUpPage", method = RequestMethod.GET)
-	public String signUpPage( ModelMap model) {
-
-		model.addAttribute("message", "Welcome ");
-		model.addAttribute("counter", ++counter);
-		logger.debug("[welcomeName] counter : {}", counter);
+	public String signUpPage() {
 		return "signUpPage";
-
 	}
 	
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user) {
-		user.save();
-		logger.debug("Saved User to Database");
-		return "signUpSuccess";
-
+	@RequestMapping(value = "/loginPage", method = RequestMethod.GET)
+	public String loginPage() {
+		return "loginPage";
 	}
+	
 }

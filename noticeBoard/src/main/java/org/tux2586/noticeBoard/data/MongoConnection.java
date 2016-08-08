@@ -11,45 +11,46 @@ import com.mongodb.client.MongoDatabase;
 public class MongoConnection {
 	private MongoClient client;
 	private MongoDatabase database;
-	private static final String mongoURI = "mongodb://192.168.1.4:45045";
-	private static final String dbName = "NoticeBoard";
-	
-	public MongoConnection(){
+	private MongoCollection collection;
+	private static final String MONGO_URI = "mongodb://192.168.1.4:45045";
+	private static final String DATABASE_NAME = "NoticeBoard";
+	private static final String USERS_COLLECTION = "users";
+
+	public MongoConnection() {
 		client = null;
 		database = null;
 	}
+
+	public void init() {
+		client = new MongoClient(new MongoClientURI(MONGO_URI));
+		database = client.getDatabase(DATABASE_NAME);
+	}
 	
-	public void init(){
-		client = new MongoClient(new MongoClientURI(mongoURI));
-		database = client.getDatabase(dbName);
+	public MongoCollection getCollection(String collectionName){
+		MongoCollection<Document> collection = database.getCollection(collectionName);
+		return collection;
 	}
 
-	public void save(Object object, String string) {
-		
-		if("users".equals(string)){
-			Document user = new Document();
-			User u = (User)object;
-			MongoCollection<Document> usersCollection = database.getCollection("users");
-			
-			user.append("_id", u.getuName())
-				.append("firstName", u.getfName())
-				.append("lName", u.getlName())
-				.append("uName", u.getuName())
-				.append("eMail",u.getEmail())
-				.append("contactNo", u.getContactNo())
-				.append("passwordHash",u.getPassword());
-			
-			usersCollection.insertOne(user);
-		}
-	}
 
 	public void close() {
 		client.close();
 	}
-	
-public static void main(String[] args){
-    	MongoConnection c = new MongoConnection();
-    	c.init();
-    }
-	
+
+	public static void main(String[] args) {
+		MongoConnection c = new MongoConnection();
+		c.init();
+	}
+
+	public void insertDocument(Document document, String collectionName) {
+
+		MongoCollection<Document> collection = database.getCollection(collectionName);
+		collection.insertOne(document);
+	}
+
+	public Document getDocument(String _id, String collectionName) {
+		
+		MongoCollection<Document> collection = database.getCollection(collectionName);
+		Document document = collection.find(new Document("_id",_id)).first();
+		return document;
+	}
 }
