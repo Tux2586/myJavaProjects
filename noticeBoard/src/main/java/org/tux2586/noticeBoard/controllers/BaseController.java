@@ -23,6 +23,8 @@ public class BaseController {
 	public String welcome(ModelMap model) {
 		return VIEW_INDEX;
 	} 
+	
+
 
 	@RequestMapping(value = "/signUpPage", method = RequestMethod.GET)
 	public String signUpPage() {

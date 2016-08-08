@@ -4,3 +4,5 @@ C:\Development\GITRepos\myJavaProjects\noticeBoard\src\main\java\org\tux2586\not
 C:\Development\GITRepos\myJavaProjects\noticeBoard\src\main\java\org\tux2586\noticeBoard\DAO\UserDAOImpl.java
 C:\Development\GITRepos\myJavaProjects\noticeBoard\src\main\java\org\tux2586\noticeBoard\beans\User.java
 C:\Development\GITRepos\myJavaProjects\noticeBoard\src\main\java\org\tux2586\noticeBoard\interfaces\UserDAOIntf.java
+C:\Development\GITRepos\myJavaProjects\noticeBoard\src\main\java\org\tux2586\noticeBoard\controllers\UserController.java
+C:\Development\GITRepos\myJavaProjects\noticeBoard\src\main\java\org\tux2586\noticeBoard\Exceptions\UserNotFoundException.java

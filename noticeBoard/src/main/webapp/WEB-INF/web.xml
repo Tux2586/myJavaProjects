@@ -5,6 +5,10 @@
 	version="2.5">
 
 	<display-name>Notice Board</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>generic.html</welcome-file>
+	</welcome-file-list>
 
 	<servlet>
 		<servlet-name>mvc-dispatcher</servlet-name>
@@ -29,4 +33,5 @@
                    org.springframework.web.context.ContextLoaderListener
                 </listener-class>
 	</listener>
+	
 </web-app>

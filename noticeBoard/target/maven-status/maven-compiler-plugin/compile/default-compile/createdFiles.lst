@@ -1,6 +1,8 @@
 org\tux2586\noticeBoard\beans\MongoCollections.class
 org\tux2586\noticeBoard\interfaces\UserDAOIntf.class
+org\tux2586\noticeBoard\Exceptions\UserNotFoundException.class
 org\tux2586\noticeBoard\beans\User.class
 org\tux2586\noticeBoard\data\MongoConnection.class
 org\tux2586\noticeBoard\DAO\UserDAOImpl.class
+org\tux2586\noticeBoard\controllers\UserController.class
 org\tux2586\noticeBoard\controllers\BaseController.class
