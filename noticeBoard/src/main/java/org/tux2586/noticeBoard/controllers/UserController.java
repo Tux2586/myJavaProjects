@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.tux2586.noticeBoard.Exceptions.UserNotFoundException;
 import org.tux2586.noticeBoard.beans.EatRecord;
@@ -85,13 +86,13 @@ public class UserController {
 	}	
 	
 	@RequestMapping(value = "/{userName}/addEatRecord", method = RequestMethod.POST)
-	public String addEatRecord(@ModelAttribute("eatRecord") EatRecord eatRecord, ModelMap model) {
+	public String addEatRecord(@RequestParam String foodName, @RequestParam String location, @RequestParam String date, ModelMap model) {
 		try {
 			String userName = (String)model.get("userName");
 			User user = new User(userName);
-			logger.debug(eatRecord.getFoodName());
-			logger.debug(eatRecord.getLocation().toString());
-			logger.debug(""+ eatRecord.getDate());
+			logger.debug(foodName);
+			logger.debug(location);
+			logger.debug(date);
 		} catch (Exception e) {
 			logger.error(LOG_PREFIX+e.getMessage());
 			model.addAttribute("errorMessage",e.getMessage());

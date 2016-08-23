@@ -22,14 +22,13 @@
 			<value>.jsp</value>
 		</property>
 	</bean> 
-	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-      <property name="formatters">
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+      <property name="converters">
            <set>
-                 <bean class="org.tux2586.noticeBoard.formatters.LocationFormatter"/>
-                
+                 <bean class="org.tux2586.noticeBoard.support.converters.LocationConverter"/>
            </set>
       </property>
-</bean>
+	</bean>
 	<mvc:resources mapping="/resources/**" location="/resources/theme1/" cache-period="31556926"/>
 	<mvc:resources mapping="/./**" location="/./" cache-period="31556926"/>
 	<mvc:annotation-driven/>
