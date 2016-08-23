@@ -8,4 +8,5 @@ public interface UserDAOIntf {
 	public void addUser(User user);
 	public void updateUser(User user) throws UserNotFoundException;
 	public User getUser(String userName, User user);
+	public User getEatHistory(User user);
 }

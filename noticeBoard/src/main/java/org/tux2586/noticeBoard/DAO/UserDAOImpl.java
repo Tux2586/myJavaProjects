@@ -20,7 +20,10 @@ public class UserDAOImpl implements UserDAOIntf {
 	private MongoConnection conn = new MongoConnection();
 	private MongoCollection collection;
 	private final static org.slf4j.Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
-	private static final String COLLECTION_NAME  = "users";
+	private static final String USERS_COLLECTION  = "users";
+	private static final String EAT_RECORDS_COLLECTION  = "eatEntries";
+	private static final String LOCATION_COLLECTION  = "locations";
+	
 	private static final String FIRST_NAME = "firstName";
 	private static final String LAST_NAME = "lastName";
 	private static final String EMAIL = "email";
@@ -32,7 +35,7 @@ public class UserDAOImpl implements UserDAOIntf {
 	public void addUser(User user){
 		MongoConnection conn = new MongoConnection();
 		conn.init();
-		collection = conn.getCollection(COLLECTION_NAME);
+		collection = conn.getCollection(USERS_COLLECTION);
 		Document usr = new Document();
 		usr.append("_id", user.getuName())
 			.append(FIRST_NAME, user.getfName())
@@ -47,7 +50,7 @@ public class UserDAOImpl implements UserDAOIntf {
 	}
 	public boolean validate(User user) {
 		conn.init();
-		Document usr = conn.getDocument(user.getuName(),COLLECTION_NAME);
+		Document usr = conn.getDocument(user.getuName(),USERS_COLLECTION);
 		conn.close();
 		
 		if(usr == null){
@@ -66,7 +69,7 @@ public class UserDAOImpl implements UserDAOIntf {
 	}
 	public void updateUser(User user) throws UserNotFoundException {
 		conn.init();
-		collection = conn.getCollection(COLLECTION_NAME);
+		collection = conn.getCollection(USERS_COLLECTION);
 		UpdateResult result = collection.updateOne(eq("_id",user.getuName()), combine(set(FIRST_NAME, user.getfName()),
 																	 set(LAST_NAME, user.getlName()),
 																	 set(EMAIL, user.getEmail()),
@@ -79,7 +82,7 @@ public class UserDAOImpl implements UserDAOIntf {
 
 	public User getUser(String userName, User user) {
 		conn.init();
-		collection = conn.getCollection(COLLECTION_NAME);
+		collection = conn.getCollection(USERS_COLLECTION);
 		Document usr = (Document) collection.find(new Document("_id",userName)).first();
 		user.setuName(userName);
 		user.setEmail(usr.getString(EMAIL));
@@ -89,6 +92,10 @@ public class UserDAOImpl implements UserDAOIntf {
 		
 		conn.close();
 		return user;
+	}
+	
+	public User getEatHistory(User user){
+		return null;
 	}
 
 }

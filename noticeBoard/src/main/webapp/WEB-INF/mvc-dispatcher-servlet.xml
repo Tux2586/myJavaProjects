@@ -11,6 +11,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<context:component-scan base-package="org.tux2586.noticeBoard.controllers" />
+	<context:component-scan base-package="org.tux2586.noticeBoard.formatters" />
 
  	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -21,6 +22,14 @@
 			<value>.jsp</value>
 		</property>
 	</bean> 
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+      <property name="formatters">
+           <set>
+                 <bean class="org.tux2586.noticeBoard.formatters.LocationFormatter"/>
+                
+           </set>
+      </property>
+</bean>
 	<mvc:resources mapping="/resources/**" location="/resources/theme1/" cache-period="31556926"/>
 	<mvc:resources mapping="/./**" location="/./" cache-period="31556926"/>
 	<mvc:annotation-driven/>

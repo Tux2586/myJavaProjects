@@ -11,6 +11,7 @@
 	<h3>Here is what you can do:</h3>
 	<ol>
 		<li><a href="./${userName}/viewProfile">View Profile</a></li>
+		<li><a href="./${userName}/viewEatHistory">View Eat History</a></li>
 	</ol>
 </body>
 </html>

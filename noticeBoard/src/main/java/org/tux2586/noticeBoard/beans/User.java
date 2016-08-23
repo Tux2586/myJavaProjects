@@ -3,6 +3,7 @@ package org.tux2586.noticeBoard.beans;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import org.tux2586.noticeBoard.DAO.UserDAOImpl;
 import org.tux2586.noticeBoard.Exceptions.UserNotFoundException;
@@ -19,6 +20,7 @@ public class User {
 	private String password;
 	private String email;
 	private String contactNo;
+	private ArrayList<EatRecord> eatHistory = new ArrayList<EatRecord>();
 	
 	public String getfName() {
 		return fName;
@@ -83,6 +85,10 @@ public class User {
         }
     }
 	
+	public ArrayList<EatRecord> getEatHistory() {
+		return eatHistory;
+	}
+	
 	public void save(){
 		UserDAOIntf userDAO = new UserDAOImpl();
 		userDAO.addUser(this);
@@ -96,6 +102,11 @@ public class User {
 	public void update() throws UserNotFoundException{
 		UserDAOIntf userDAO = new UserDAOImpl();
 		userDAO.updateUser(this);
+	}
+	
+	public void loadEatHistory() throws UserNotFoundException{
+		UserDAOIntf userDAO = new UserDAOImpl();
+		userDAO.getEatHistory(this);
 	}
 	
 }
